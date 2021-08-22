@@ -5,4 +5,6 @@
 .App footer {
   font-size: 11px;
   margin: 10px 0;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 100;
 }
