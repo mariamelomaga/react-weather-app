@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./Weather.css";
 
 import WeatherInfo from "./WeatherInfo";
+import WeatherForecast from "./WeatherForecast";
 
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
@@ -12,6 +13,7 @@ export default function Weather(props) {
     console.log(response.data);
     setWeatherData({
       ready: true,
+      coordinates: response.data.coord,
       date: new Date(response.data.dt * 1000),
       temperature: response.data.main.temp,
       wind: response.data.wind.speed,
@@ -42,7 +44,7 @@ export default function Weather(props) {
       <div className="Weather">
         <form onSubmit={handleSubmit}>
           <div className="row">
-            <div className="col-9">
+            <div className="col">
               <input
                 type="search"
                 placeholder="type a city"
@@ -52,11 +54,16 @@ export default function Weather(props) {
               />
             </div>
             <div className="col-3">
-              <input type="submit" value="search" className="btn w-100" />
+              <input
+                type="submit"
+                value="search"
+                className="btn btn-warning "
+              />
             </div>
           </div>
         </form>
         <WeatherInfo data={weatherData} />
+        <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
     );
   } else {
